@@ -1,12 +1,17 @@
+import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
-import '../assets/css/app.css';
-import logo from '../assets/images/logo.svg';
+import Header from './header';
+import StudenListTable from './student_list_table';
+import AddForm from './add_form';
+
+
 
 const App = () => (
     <div>
-        <div className="app">
-            <img src={logo} className="logo rotate"/>
-            <h1>Welcome to React</h1>
+        <div className="container">
+            <Header/>
+            <AddForm/>
+            <StudenListTable/>
         </div>
     </div>
 );
