@@ -15,8 +15,9 @@
     "url": "https://github.com/kemi0/Student-Grade-Table-FULL-STACK-.git"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
-    "bootstrap": "^4.1.1",
+    "bootstrap": "^3.3.7",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-redux": "^5.0.7",
