@@ -6,10 +6,10 @@ $postJSON = file_get_contents('php://input');
 $post = json_decode($postJSON, TRUE);
 
 $PAGEACCESS = TRUE;
-require_once('mysqlcredentails.php');
+require_once('mysqlcredentials.php');
 
 $output = [
-        'succes' => false,
+        'success' => false,
         'data' => [],
         'errors' => [],
 ];
@@ -18,7 +18,7 @@ switch($_GET['action']){
     case 'get':
         switch($_GET['resource']){
             case 'students' : {
-                require_once('./actions/fetch_students.php');
+                require_once('./fetch_students.php');
             }
             break;
         }
@@ -26,7 +26,7 @@ switch($_GET['action']){
         switch($_GET['resource']){
             case 'add_student':
                 if(!empty($post)){
-                    require_once('./actions/add_studnet.php');
+                    require_once('./add_student.php');
                 }
                 break;
         }
