@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Utlizing ReactJS, Redux, and Redux-form",
   "main": "index.js",
+  "proxy": {
+    "/server": "http://localhost:8888"
+  },
   "scripts": {
     "start": "node dev_server.js",
     "bundle": "webpack --config webpack.prod.js --progress",
@@ -22,7 +25,9 @@
     "react-dom": "^16.4.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "redux-form": "^7.3.0",
+    "redux-promise": "^0.6.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

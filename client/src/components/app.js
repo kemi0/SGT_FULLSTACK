@@ -10,7 +10,7 @@ const App = () => (
     <div>
         <div className="container">
             <Header/>
-            <AddForm/>
+            <AddForm />
             <StudenListTable/>
         </div>
     </div>
