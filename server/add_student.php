@@ -1,6 +1,6 @@
 <?php 
 
-if(!isset($PAGEACCESS) || $PAGESACCESS === false ) {
+if(!isset($PAGEACCESS) || $PAGEACCESS === false ) {
         die('NO DIRECT ACCESS ALLOWED');
 }
 
