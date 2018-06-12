@@ -8,10 +8,10 @@ import Promise from 'redux-promise';
 
 import App from './components/app';
 
-const store = createStore(rootReducer, {}, applyMiddleware());
+const store = createStore(rootReducer, {}, applyMiddleware(Promise));
 
 ReactDOM.render(
-    <Provider store={createStore(rootReducer, {}, applyMiddleware(Promise))}>
+    <Provider store={store}>
          <App />
     </Provider>,
     document.getElementById('root')
