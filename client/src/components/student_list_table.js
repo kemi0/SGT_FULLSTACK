@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import {connect } from 'react-redux';
+import {connect, dispatch, bindActionCreators } from 'react-redux';
 import { getStudents } from '../actions';
 import Students from './students';
 
 class StudentListTable extends Component {
 
-    componenetWillMount() {
+    componentWillMount() {
         this.props.getStudents();
     }
     render() {
+        if (!Array.isArray(this.props.students)){
+            console.log('props: ', this.props)
+        }
 
         const students = this.props.students.map((item, index) => {
                 return <Students key={index} {...item}/>

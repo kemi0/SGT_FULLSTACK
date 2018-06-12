@@ -14,9 +14,9 @@ class AddForm extends Component {
         console.log('hello', values);
         this.props.addStudent(values.name, values.course, values.grade)
         
-            .then(()=> {
-            this.props.getStudents()
-        })
+            // .then(()=> {
+            // this.props.getStudents()
+        // }) n
     }
 
     renderInput({input, type, placeholder}) {
@@ -57,9 +57,10 @@ AddForm = reduxForm({
 // }
 // function mapDispatchToProps( dispatch, props) {
 //     return {
-//         handleSubmit: () => {
-//           dispatch(addStudent())
-//         }
+//         handleSubmit: function(name, course, grade) {
+//             dispatch(addStudent(name, course, grade))
+//         },
+//         getStudents: () => dispatch(getStudents())
 //     }
 // }
 

@@ -1,7 +1,7 @@
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import Header from './header';
-import StudenListTable from './student_list_table';
+import StudentListTable from './student_list_table';
 import AddForm from './add_form';
 
 
@@ -11,7 +11,7 @@ const App = () => (
         <div className="container">
             <Header/>
             <AddForm />
-            <StudenListTable/>
+            <StudentListTable />
         </div>
     </div>
 );
