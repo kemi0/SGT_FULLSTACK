@@ -145,7 +145,6 @@ function mapStateToProps(state){
     return{
         success: state.deleteStudent.success,
         errorMessage: state.deleteStudent.errorMessage,
-        backEndRoute: state.route
     }
 }
 
