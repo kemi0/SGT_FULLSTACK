@@ -1,25 +1,45 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { addStudent, getStudents } from '../actions';
+import { addModal } from 'react-redux';
 import { connect } from 'react-redux';
 
 class AddForm extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
+        this.state = {
+            errorMessage: '',
+            modalVisible: false,
+            values: {},
+        }
+        this.addStudents = this.addStudents.bind(this);
 
     }
 
     addStudents(values){
-        console.log('hello', values);
-        this.props.addStudent(values.name, values.course, values.grade)
-        
-            // .then(()=> {
-            // this.props.getStudents()
-        // }) n
+        this.props.addStudent(this.props.backEndRoute, values.name, values.course, values.grade)
+            .then(()=>{
+                if(this.props.success){
+                    this.props.getStudents(this.props.backEndRoute)
+                    this.setState({
+                        errorMessage: '',
+                        modalVisible: true,
+                        values: values
+                    })
+
+                }else{
+                    this.setState({
+                        errorMessage:this.props.errorMessage
+                    })
+                }
+                this.props.reset();
+            })
+
+
     }
 
-    renderInput({input, type, placeholder}) {
+    renderInput({ input, type, placeholder }) {
         return (
             <div className="input-group form-group">
                 <span className="input-group-addon">
@@ -35,9 +55,9 @@ class AddForm extends Component {
         return (
             <form className="student-add-form col-md-3-md-push-9" onSubmit={this.props.handleSubmit(this.addStudents.bind(this))}>
                 <h4>Add Student</h4>
-                <Field name='name' placeholder='student Name' type='text' component={this.renderInput}/>
-                <Field name='course' placeholder='Student Course' type='text' component={this.renderInput}/>
-                <Field name='grade' placeholder='Student Grade' type='text' component={this.renderInput}/>
+                <Field name='name' placeholder='student Name' type='text' component={this.renderInput} />
+                <Field name='course' placeholder='Student Course' type='text' component={this.renderInput} />
+                <Field name='grade' placeholder='Student Grade' type='text' component={this.renderInput} />
                 <button className="btn btn-success add">Add</button>
             </form>
         );
@@ -48,21 +68,7 @@ AddForm = reduxForm({
     form: "add-form"
 })(AddForm);
 
-// function mapStateToProps(state, props ) {
-//     return {
-//         ...props,
-//         form: state.form,
-//         student: state.students
-//     }
-// }
-// function mapDispatchToProps( dispatch, props) {
-//     return {
-//         handleSubmit: function(name, course, grade) {
-//             dispatch(addStudent(name, course, grade))
-//         },
-//         getStudents: () => dispatch(getStudents())
-//     }
-// }
 
-export default connect(null, {addStudent, getStudents})(AddForm);
+
+export default connect(null, { addStudent, getStudents })(AddForm);
 
