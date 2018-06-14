@@ -1,12 +1,26 @@
 import React, { Component } from 'react';
-import {connect, dispatch, bindActionCreators } from 'react-redux';
+import { connect } from 'react-redux';
 import { getStudents } from '../actions';
 import Students from './students';
 
 class StudentListTable extends Component {
+    constructor(props){
+        super(props);
 
-    componentWillMount() {
+        this.scrollTop= this.scrollTop.bind(this);
+    }
+
+    componentDidMount() {
         this.props.getStudents();
+        window.addEventListener('scroll', this.scroll)
+    }
+    scroll() {
+            if (document.body.scrollTop > 40 || document.documentElement.scrollTop > 40) {
+            document.getElementById("scrollUp").style.display = "block";
+        } else {
+            document.getElementById("scrollUp").style.display = "none";
+        }
+      }
     }
     render() {
         if (!Array.isArray(this.props.students)){
