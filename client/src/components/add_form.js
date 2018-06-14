@@ -1,18 +1,41 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { addStudent, getStudents } from '../actions';
+import { addModal } from 'react-redux';
 import { connect } from 'react-redux';
 
 class AddForm extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            errorMessage: '',
+            modalVisible: false,
+            values: {},
+        }
+        this.addStudents = this.addStudents.bind(this);
 
     }
 
-    addStudents(values) {
-        console.log('hello', values);
-        this.props.addStudent(values.name, values.course, values.grade)
+    addStudents(values){
+        this.props.addStudent(this.props.backEndRoute, values.name, values.course, values.grade)
+            .then(()=>{
+                if(this.props.success){
+                    this.props.getStudents(this.props.backEndRoute)
+                    this.setState({
+                        errorMessage: '',
+                        modalVisible: true,
+                        values: values
+                    })
+
+                }else{
+                    this.setState({
+                        errorMessage:this.props.errorMessage
+                    })
+                }
+                this.props.reset();
+            })
+
 
     }
 
@@ -45,21 +68,7 @@ AddForm = reduxForm({
     form: "add-form"
 })(AddForm);
 
-// function mapStateToProps(state, props ) {
-//     return {
-//         ...props,
-//         form: state.form,
-//         student: state.students
-//     }
-// }
-// function mapDispatchToProps( dispatch, props) {
-//     return {
-//         handleSubmit: function(name, course, grade) {
-//             dispatch(addStudent(name, course, grade))
-//         },
-//         getStudents: () => dispatch(getStudents())
-//     }
-// }
+
 
 export default connect(null, { addStudent, getStudents })(AddForm);
 
