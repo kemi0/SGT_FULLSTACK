@@ -1,10 +1,14 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
-import reducerStudentTable from './reducer_student_table';
+import studentsReducer from './students_reducer';
+import addStudentReducer from './add_students_reducer';
+import deleteStudentReducer from './delete_student_reducer';
 
 
  export default combineReducers({
-    students: reducerStudentTable,
-    form: formReducer
+    students: studentsReducer,
+    addStudent: addStudentReducer,
+    deleteStudent: deleteStudentReducer,
+    form: formReducer,
 });
 
