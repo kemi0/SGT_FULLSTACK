@@ -18,23 +18,39 @@ const ADD_URL = 'server/database_connect.php?action=post&resource=add_student';
 
 
 export function addStudent(name, course, grade){
-    const request = axios.post(ADD_URL, {
-        name: name,
-        course: course,
-        grade: grade
-    })
-    .then(response => {
-        if(response.data.success) return {
+    // console.log('action index.js:');
+    return {
+        type: types.ADD_STUDENT,
+        payload: axios.post(ADD_URL, {
             name: name,
             course: course,
             grade: grade
-        }
-    })
-    console.log('action index.js:');
-    return {
-        type: types.ADD_STUDENT,
-        payload: request
+        })
+        .then(response => {
+            return response;
+            // if(response.data.success) return {
+            //     name: name,
+            //     course: course,
+            //     grade: grade
+            // }
+        })
     }
+
+//     return axios.post(ADD_URL, {
+//         name: name,
+//         course: course,
+//         grade: grade
+//     })
+//     .then(response => {
+//         if(response.data.success) return {
+//             type: types.ADD_STUDENT,
+//             payload: {
+//                 name: name,
+//                 course: course,
+//                 grade: grade
+//             }
+//         }
+//     })
 }
 export function deleteStudent(name, course, grade ){
     const request = axios.post(ADD_URL)
