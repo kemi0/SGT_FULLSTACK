@@ -21,20 +21,18 @@ class StudentListTable extends Component {
             document.getElementById("scrollUp").style.display = "none";
         }
       }
+    scrollTop(){
+        document.documentElement.scrollTop = 0;
     }
-    render() {
-        if (!Array.isArray(this.props.students)){
-            console.log('props: ', this.props)
-        }
 
+    render() {
         const students = this.props.students.map((item, index) => {
                 return <Students key={index} {...item}/>
         });
 
-        if(!this.props.students) return;
         return (
-            <div className="student-list-conatiner col-md-9 col-md-pull-3">
-                <table className="student-list table">
+            <div className="col-md-9 col-md-pull-3">
+                <table className="table table-striped pull-left">
                 <thead>
                     <tr>
                         <th>Student Name</th>
@@ -47,6 +45,8 @@ class StudentListTable extends Component {
                     {students}
                 </tbody>
                 </table>
+                <button id='scrollUp' onClick={this.scrollTop}>TOP</button>
+                <h1 className='text-center'>{this.props.students.length ? '' : 'There are no data'}</h1>
             </div>
         );
     }
