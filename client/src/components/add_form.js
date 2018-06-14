@@ -18,7 +18,9 @@ class AddForm extends Component {
     }
 
     addStudents(values){
-        this.props.addStudent(this.props.backEndRoute, values.name, values.course, values.grade)
+
+        //removed banck end route off of props
+        this.props.addStudent(values.name, values.course, values.grade)
             .then(()=>{
                 if(this.props.success){
                     this.props.getStudents(this.props.backEndRoute)
@@ -67,7 +69,6 @@ class AddForm extends Component {
 
    
     render() {
-        const {currentRoute} = this.state;
 
         return (
             <form className="col-md-3 col-md-push-9" onSubmit={this.props.handleSubmit(this.addStudents)}>
@@ -79,8 +80,7 @@ class AddForm extends Component {
                 <button className="btn btn-success">Add</button>
 
                 <div className='pull-right'>
-                    <button type="button" className={`btn ${currentRoute === 'php' ? 'btn-primary' : 'btn-link' }`} onClick={()=>this.switchBackEnd('php')}>PHP</button>
-                    <button type="button" className={`btn ${currentRoute === 'node' ? 'btn-primary' : 'btn-link' }`} onClick={()=>this.switchBackEnd('node')}>Node</button>
+                    <button type="button" className="btn-primary btn-link" onClick={(this.props.getStudents).bind(this)}>PHP</button>
                 </div>
 
 
