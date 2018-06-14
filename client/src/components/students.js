@@ -1,16 +1,153 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { deleteStudent, getStudents, editStudent } from '../actions/'
+import { DeleteModal } from '../helpers/';
 
-export default class students extends Component {
+
+class Students extends Component {
+
+    constructor(props){
+        super(props);
+
+
+        this.state={
+            modalVisible: false,
+            edit: false,
+            form: {
+                name: this.props.name,
+                course: this.props.course,
+                grade: this.props.grade
+            },
+            changed: false
+        }
+        this.showDeleteModal = this.showDeleteModal.bind(this);
+        this.toggleEdit = this.toggleEdit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.cancleEdit = this.cancleEdit.bind(this);
+    }
+
+
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            form:{
+                name:nextProps.name,
+                course: nextProps.course,
+                grade: nextProps.grade
+            }
+        })
+    }
+
+
+    toggleEdit(){
+        this.setState({
+            edit: !this.state.edit,
+            changed: false
+        })
+
+        if( this.state.changed){
+            const {name, course, grade} = this.state.form
+            console.log('toggleEdit', this.props.backEndRoute);
+            this.props.editStudent(this.props.backEndRoute, name, course, grade, this.props.id)
+                .then(()=>{ this.props.getStudents(this.props.backEndRoute)})
+        }
+    }
+
+    showDeleteModal(){
+        this.setState({
+            modalVisible: true,
+        })
+    }
+    hideDeleteModal(){
+        this.setState({
+            modalVisible: false,
+            edit: !this.state.edit
+        })
+    }
+
+    cancleEdit(){
+        this.setState({
+            edit: !this.state.edit
+        })
+    }
+
+
+
+    deleteStudent(){
+        this.props.deleteStudent(this.props.backEndRoute, this.props.id)
+            .then(()=>this.props.getStudents(this.props.backEndRoute))
+                .then(()=>this.hideDeleteModal(this.props.backEndRoute))
+    }
+
+    handleChange(e){
+        const {value, name} = e.target;
+        const {form} = this.state;
+        form[name]= value;
+        this.setState({
+            form: {...form},
+            changed: true
+        });
+    }
+
     render() {
 
-        return (
-            <tr>    
+
+        const button = (
+            this.state.edit ?
+            <td>
+                <button onClick={this.showDeleteModal} className="btn btn-danger">DEL</button>
+                <button onClick={this.toggleEdit} className="btn btn-success">SAVE</button>
+                <button onClick={this.cancleEdit} className="btn btn-warning">CANCLE</button>
+                {this.state.modalVisible ?
+                    <DeleteModal
+                        confirmDeleteStudent={this.deleteStudent.bind(this)}
+                        hideModal={this.hideDeleteModal.bind(this)}
+                        data={this.props}/>
+                    :
+                    ''
+                }
+
+            </td>
+            :
+            <td>
+                <button onClick={this.toggleEdit} className="delete btn btn-info">EDIT</button>
+            </td>
+        );
+
+        const students = (
+            <tr className={parseInt(this.props.grade) === 100 ? 'success' : ''}>
                 <td>{this.props.name}</td>
                 <td>{this.props.course}</td>
                 <td>{this.props.grade}</td>
-                <td><button className="delete btn btn-danger">Delete</button></td>
+                {button}
             </tr>
         );
+
+        const editInputs= (
+            <tr>
+                <td><input name='name' onChange={this.handleChange} type="text" value={this.state.form.name}/></td>
+                <td><input name='course' onChange={this.handleChange} type="text" value={this.state.form.course}/></td>
+                <td><input name='grade' onChange={this.handleChange} type="text" value={this.state.form.grade}/></td>
+                {button}
+            </tr>
+        );
+
+        if(this.state.edit){
+            return editInputs;
+        }else{
+            return students;
+        }
+
     }
 }
 
+
+function mapStateToProps(state){
+    return{
+        success: state.deleteStudent.success,
+        errorMessage: state.deleteStudent.errorMessage,
+        backEndRoute: state.route
+    }
+}
+
+
+export default connect(mapStateToProps, {deleteStudent, getStudents, editStudent})(Students);
