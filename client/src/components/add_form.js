@@ -80,7 +80,7 @@ class AddForm extends Component {
                 <button className="btn btn-success">Add</button>
 
                 <div className='pull-right'>
-                    <button type="button" className="btn-primary btn-link" onClick={(this.props.getStudents).bind(this)}>PHP</button>
+                    <button type="button" className="Php btn btn-primary btn-link" onClick={(this.props.getStudents).bind(this)}>PHP</button>
                 </div>
 
 

@@ -13,7 +13,11 @@ table td:nth-child(2){
     white-space: pre-line;
     text-overflow:ellipsis;
 }
-
+.Php{
+   background: #337ab7;
+   color: white;
+   border-radius: 5px;
+}
 
 #scrollUp {
   display: none;
