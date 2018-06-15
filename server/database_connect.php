@@ -14,22 +14,25 @@ $output = [
         'errors' => [],
 ];
 
-switch($_GET['action']){
-    case 'get':
-        switch($_GET['resource']){
-            case 'students' : {
-                require_once('./fetch_students.php');
-            }
-            break;
+switch($_GET['resource']){
+    case 'students':
+        require_once('./fetch_students.php');
+        break;
+    case 'add_student':
+        if(!empty($post)){
+            require_once('./add_student.php');
         }
-    case 'post':
-        switch($_GET['resource']){
-            case 'add_student':
-                if(!empty($post)){
-                    require_once('./add_student.php');
-                }
-                break;
+        break;
+    case 'delete_student':
+        if(!empty($post)){
+            require_once('./delete_student.php');
         }
+        break;
+    case 'edit_student':
+        if(!empty($post)){
+            require_once('./edit_student.php');
+        }
+        break;
 }
 
 if(isset($students)){
