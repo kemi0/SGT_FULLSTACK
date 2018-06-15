@@ -18,7 +18,7 @@ class Header extends Component {
 }
 function mapStateToProps(state){
     return{
-        avaerage: state.students.average
+        average: state.students.average
     }
 }
 

@@ -2,8 +2,9 @@ import types from './types';
 import axios from 'axios';
 
 const BASE_URL = 'server/database_connect.php?action=get&resource=students';
-
-
+const DEL_URL = `server/database_connect.php?action=get&resource=delete_student`
+const ADD_URL = 'server/database_connect.php?action=post&resource=add_student';
+const EDT_URL = `server/database_connect.php?action=post&resource=edit_student`;
 
 export function getStudents() {
     console.log('getStudents called')
@@ -14,8 +15,7 @@ export function getStudents() {
         }
 }
 
-const ADD_URL = 'server/database_connect.php?action=post&resource=add_student';
-
+// const DELETE_URL = 
 
 export function addStudent(name, course, grade){
     // console.log('action index.js:');
@@ -52,8 +52,11 @@ export function addStudent(name, course, grade){
 //         }
 //     })
 }
-export function deleteStudent(name, course, grade ){
-    const request = axios.post(ADD_URL)
+export function deleteStudent( id ){
+    const request = axios.post(DEL_URL, {
+      id: id,
+
+    })
     return {
         type: types.DELETE_STUDENT,
         payload: request
@@ -61,7 +64,7 @@ export function deleteStudent(name, course, grade ){
 }
 
 export function editStudent(name, course,grade,id){
-    const request = axios.post(ADD_URL, {
+    const request = axios.post(EDT_URL, {
         name: name,
         course: course,
         grade: grade,
