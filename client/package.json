@@ -1,8 +1,7 @@
 {
-  "name": "student grade table",
+  "name": "student-grade-table",
   "version": "1.0.0",
-  "Overview": "Student Grade Table: An application for teachers to view student grade records. They can add, edit or delte studnets and their records",
-  "description": "Utlizing ReactJS, Redux, and Redux-form",
+  "description": "Utilizing React, Redux, Redux-Promise, Redux-form and Bootstrap",
   "main": "index.js",
   "proxy": {
     "/server": "http://localhost:8888"
