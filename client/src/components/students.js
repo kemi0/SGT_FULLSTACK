@@ -54,6 +54,12 @@ class Students extends Component {
     showDeleteModal(){
         this.setState({
             modalVisible: true,
+            changed: false,
+            form: {
+                name: this.props.name,
+                course: this.props.course,
+                grade: this.props.grade
+            }
         })
     }
     hideDeleteModal(){
@@ -65,7 +71,13 @@ class Students extends Component {
 
     cancleEdit(){
         this.setState({
-            edit: !this.state.edit
+            edit: !this.state.edit,
+            changed: false,
+            form: {
+                name: this.props.name,
+                course: this.props.course,
+                grade: this.props.grade
+            }
         })
     }
 
